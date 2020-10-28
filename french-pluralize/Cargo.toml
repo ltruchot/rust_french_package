@@ -1,6 +1,6 @@
 [package]
 name = "french-pluralize"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Loic TRUCHOT <loic.truchot.pro@gmail.com>"]
 edition = "2018"
 description = "Help to get plurals of French words in different ways."
