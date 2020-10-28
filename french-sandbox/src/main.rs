@@ -1,3 +1,4 @@
+use french_pluralize::pluralize;
 fn main() {
-    println!("Hello, world!");
+    println!("{}", pluralize("voiture"));
 }
