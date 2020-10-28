@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+  "french-pluralize",
+  "french-feminize",
+  "french-sandbox",
+]
