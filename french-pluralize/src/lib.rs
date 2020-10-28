@@ -2,27 +2,6 @@
 
 mod graphemes;
 
-#[cfg(test)]
-mod tests {
-    use super::pluralize;
-    #[test]
-    fn pluralize_works() {
-        assert_eq!(pluralize("oeil"), "yeux");
-        assert_eq!(pluralize("tests"), "tests");
-        assert_eq!(pluralize("animaux"), "animaux");
-        assert_eq!(pluralize("nez"), "nez");
-        assert_eq!(pluralize("bleu"), "bleus");
-        assert_eq!(pluralize("vieu"), "vieux");
-        assert_eq!(pluralize("bateau"), "bateaux");
-        assert_eq!(pluralize("landau"), "landaus");
-        assert_eq!(pluralize("bijou"), "bijoux");
-        assert_eq!(pluralize("matou"), "matous");
-        assert_eq!(pluralize("animal"), "animaux");
-        assert_eq!(pluralize("festival"), "festivals");
-        assert_eq!(pluralize("voiture"), "voitures");
-    }
-}
-
 #[must_use]
 pub fn pluralize(s: &str) -> String {
     // global exception
@@ -85,4 +64,25 @@ pub fn pluralize(s: &str) -> String {
         };
     }
     result + "s"
+}
+
+#[cfg(test)]
+mod tests {
+    use super::pluralize;
+    #[test]
+    fn pluralize_works() {
+        assert_eq!(pluralize("oeil"), "yeux");
+        assert_eq!(pluralize("tests"), "tests");
+        assert_eq!(pluralize("animaux"), "animaux");
+        assert_eq!(pluralize("nez"), "nez");
+        assert_eq!(pluralize("bleu"), "bleus");
+        assert_eq!(pluralize("vieu"), "vieux");
+        assert_eq!(pluralize("bateau"), "bateaux");
+        assert_eq!(pluralize("landau"), "landaus");
+        assert_eq!(pluralize("bijou"), "bijoux");
+        assert_eq!(pluralize("matou"), "matous");
+        assert_eq!(pluralize("animal"), "animaux");
+        assert_eq!(pluralize("festival"), "festivals");
+        assert_eq!(pluralize("voiture"), "voitures");
+    }
 }
