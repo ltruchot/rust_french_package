@@ -3,5 +3,5 @@
 members = [
   "french-pluralize",
   "french-feminize",
-  "french-sandbox",
+  "sandbox",
 ]

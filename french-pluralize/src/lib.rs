@@ -3,13 +3,14 @@
 mod exceptions;
 mod graphemes;
 
-#[must_use]
 /**
+ * Takes any French word in the singular and return it in the plural
  *  @see https://fr.wiktionary.org/wiki/Annexe:Pluriels_irr%C3%A9guliers_en_fran%C3%A7ais
  */
+#[must_use]
 pub fn pluralize_word(word: &str) -> String {
     // TODO: composed words
-    // ex: œil-de-bœuf
+    // ex: œil-de-bœuf -> œils-de-bœufs
 
     // TODO: disambiguation
     // "lieu" the place takes an "x", when "lieu" the fish take an "s"
@@ -46,12 +47,11 @@ pub fn pluralize_word(word: &str) -> String {
         return result;
     }
 
-    // -- ending with "au", "eu", "ou", "al"
+    // -- ending with "au", "eu", "ou", "al", "œu"
     let last_2_graphemes = graphemes::take_lasts(word, 2);
     let last2 = last_2_graphemes.as_str();
 
-    if last2 == "au" || last2 == "eu" || last2 == "ou" || last2 == "al" || /* œu */ last2 == "\u{153}u"
-    {
+    if last2 == "au" || last2 == "eu" || last2 == "ou" || last2 == "al" || last2 == "\u{153}u" {
         return match last2 {
             // exceptions
             "ou" => {
@@ -100,7 +100,7 @@ mod tests {
         assert_eq!(pluralize_word("a"), "as");
         assert_eq!(pluralize_word("oeil"), "yeux");
         assert_eq!(pluralize_word("tests"), "tests");
-        assert_eq!(pluralize_word("animaux"), "animaux");
+        assert_eq!(pluralize_word("houx"), "houx");
         assert_eq!(pluralize_word("nez"), "nez");
         assert_eq!(pluralize_word("bleu"), "bleus");
         assert_eq!(pluralize_word("vieu"), "vieux");
