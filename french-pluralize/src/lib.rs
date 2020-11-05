@@ -1,7 +1,7 @@
 #![warn(clippy::all, clippy::pedantic, clippy::nursery)]
 
 mod exceptions;
-mod graphemes;
+use grapheme_picker::{drop_last, drop_lasts, take_last, take_lasts};
 
 /**
  * Takes any French word in the singular and return it in the plural
@@ -42,13 +42,13 @@ pub fn pluralize_word(word: &str) -> String {
     let result = String::from(word);
 
     // -- ending with "s", "x", "z"
-    let last = graphemes::take_last(word);
+    let last = take_last(word);
     if last == "s" || last == "x" || last == "z" {
         return result;
     }
 
     // -- ending with "au", "eu", "ou", "al", "œu"
-    let last_2_graphemes = graphemes::take_lasts(word, 2);
+    let last_2_graphemes = take_lasts(word, 2);
     let last2 = last_2_graphemes.as_str();
 
     if last2 == "au" || last2 == "eu" || last2 == "ou" || last2 == "al" || last2 == "\u{153}u" {
@@ -72,7 +72,7 @@ pub fn pluralize_word(word: &str) -> String {
                 if exceptions::AL.contains(&word) {
                     result + "s"
                 } else {
-                    graphemes::drop_last(word) + "ux"
+                    drop_last(word) + "ux"
                 }
             }
             // not reachable
@@ -81,10 +81,10 @@ pub fn pluralize_word(word: &str) -> String {
     }
 
     // -- ending with "ail"
-    let last_3_graphemes = graphemes::take_lasts(word, 3);
+    let last_3_graphemes = take_lasts(word, 3);
     let last3 = last_3_graphemes.as_str();
     if last3 == "ail" && exceptions::AIL.contains(&word) {
-        return graphemes::drop_lasts(word, 2) + "ux";
+        return drop_lasts(word, 2) + "ux";
     }
     // 3) no exception: the most classic form
     result + "s"

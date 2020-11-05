@@ -2,6 +2,7 @@
 
 use unicode_segmentation::UnicodeSegmentation;
 
+#[must_use]
 pub fn take_last(word: &str) -> String {
     let s = String::from(word);
     // check last
@@ -12,6 +13,7 @@ pub fn take_last(word: &str) -> String {
     })
 }
 
+#[must_use]
 pub fn take_lasts(word: &str, n: usize) -> String {
     // chars
     let chars = word.graphemes(true).collect::<Vec<&str>>();
@@ -27,10 +29,12 @@ pub fn take_lasts(word: &str, n: usize) -> String {
         .join("")
 }
 
+#[must_use]
 pub fn drop_last(word: &str) -> String {
     drop_lasts(word, 1)
 }
 
+#[must_use]
 pub fn drop_lasts(word: &str, n: usize) -> String {
     // chars
     let chars = word.graphemes(true).collect::<Vec<&str>>();

@@ -1,7 +1,9 @@
 [workspace]
 
 members = [
-  "french-pluralize",
+  "french-conjugate",
   "french-feminize",
+  "french-pluralize",
+  "grapheme-picker",
   "sandbox",
 ]

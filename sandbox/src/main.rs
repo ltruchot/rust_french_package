@@ -1,4 +1,5 @@
 use french_pluralize::pluralize_word;
+
 fn main() {
     println!("{}", pluralize_word("voiture")); // voitures
     assert_eq!(pluralize_word(""), "");

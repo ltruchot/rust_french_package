@@ -1,11 +1,11 @@
 [package]
 name = "french-pluralize"
-version = "0.2.1"
+version = "0.2.3"
 authors = ["Loic TRUCHOT <loic.truchot.pro@gmail.com>"]
 edition = "2018"
 description = "Help to get plurals of French words in different ways."
 readme = "README.md"
-repository = "https://github.com/ltruchot/rust_french_packages"
+repository = "https://github.com/ltruchot/rust_french-packages"
 license = "MIT"
 license-file = "LICENSE.md"
 keywords = ["french", "lang", "language", "plural", "pluralizer"]
@@ -14,4 +14,5 @@ categories = ["internationalization", "localization", "text-processing"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-unicode-segmentation = "1.6.0"
+grapheme-picker = { path = "../grapheme-picker" }
+
