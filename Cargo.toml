@@ -3,7 +3,11 @@
 members = [
   "french-conjugate",
   "french-feminize",
+  "french-inclusive",
   "french-pluralize",
+  "french-poetry",
+  "french-words",
+  "french-words-generator",
   "grapheme-picker",
   "sandbox",
 ]
