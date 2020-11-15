@@ -2,7 +2,6 @@ use french_words::structs::NounGender;
 
 #[derive(Debug, Ord, PartialEq, Eq, PartialOrd)]
 pub struct Lemma {
-    pub id: i64,
     pub content: String,
     pub phonetic: Option<String>,
 }
@@ -10,8 +9,9 @@ pub struct Lemma {
 pub struct CommonNoun {
     pub gender: Option<String>,
     pub singular: Lemma,
-    pub feminine: Option<String>,
     pub plural: Option<Lemma>,
+    pub feminine: Option<Lemma>,
+    pub feminine_plural: Option<Lemma>,
 }
 impl CommonNoun {
     pub fn get_as_str(&self) -> String {

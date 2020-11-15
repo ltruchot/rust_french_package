@@ -19,25 +19,24 @@ pub fn select_common_nouns() -> Result<Vec<CommonNoun>> {
 
     let pool = Pool::new(url)?;
     let mut conn = pool.get_conn()?;
-    let mut selected_nouns = conn.query_map(
+    let selected_nouns = conn.query_map(
         "SELECT
-            lemma.lemmaID AS singular_id,
-            lemma.content AS singular_content,
-            inflection.inflectionID AS plural_id,
+        lemma.content AS singular_content,
             lemma.gender AS gender,
             lemma.phonetic1 AS singular_phonetic,
             inflection.content AS plural_content,
             inflection.phonetic1 AS plural_phonetic,
             fem.fem_content AS feminine_content,
             fem.fem_phonetic AS feminine_phonetic,
-            fem.fem_plural AS plural_feminine_content,
-            fem.fem_plural_phonetic AS plural_feminine_phonetic
+            fem.fem_plural AS feminine_plural_content,
+            fem.fem_plural_phonetic AS feminine_plural_phonetic
         FROM
             lemma
         LEFT JOIN inflection ON lemma.lemmaID = inflection.lemmaID AND inflection.number = 'plural'
         LEFT JOIN(
             SELECT
                 fem.content AS fem_content,
+                fem.lemmaID AS fem_id,
                 feminineOf,
                 inflection_fem.content AS fem_plural,
                 fem.phonetic1 AS fem_phonetic,
@@ -55,11 +54,10 @@ pub fn select_common_nouns() -> Result<Vec<CommonNoun>> {
         WHERE
             lemma.category = 'commonNoun' AND lemma.feminineOf IS NULL
         ORDER BY
-            lemma.content",
+            lemma.content
+        LIMIT 100",
         |(
-            singular_id,
             singular_content,
-            plural_id,
             gender,
             singular_phonetic,
             plural_content,
@@ -69,9 +67,7 @@ pub fn select_common_nouns() -> Result<Vec<CommonNoun>> {
             feminine_plural_content,
             feminine_plural_phonetic,
         ): (
-            i64,
             String,
-            Option<i64>,
             Option<String>,
             Option<String>,
             Option<String>,
@@ -84,23 +80,34 @@ pub fn select_common_nouns() -> Result<Vec<CommonNoun>> {
             CommonNoun {
                 gender,
                 singular: Lemma {
-                    id: singular_id,
                     content: singular_content,
                     phonetic: singular_phonetic,
                 },
-                feminine: feminine_content,
                 plural: match plural_content {
                     Some(s) => Some(Lemma {
-                        id: plural_id.unwrap(),
                         content: s,
                         phonetic: plural_phonetic,
+                    }),
+                    None => None,
+                },
+                feminine: match feminine_content {
+                    Some(s) => Some(Lemma {
+                        content: s,
+                        phonetic: feminine_phonetic,
+                    }),
+                    None => None,
+                },
+                feminine_plural: match feminine_plural_content {
+                    Some(s) => Some(Lemma {
+                        content: s,
+                        phonetic: feminine_plural_phonetic,
                     }),
                     None => None,
                 },
             }
         },
     )?;
-    selected_nouns.sort_by(|a, b| b.singular.content.cmp(&a.singular.content));
+    // selected_nouns.sort_by(|a, b| b.singular.content.cmp(&a.singular.content));
     Ok(selected_nouns)
 }
 
