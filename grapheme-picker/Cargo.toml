@@ -3,6 +3,13 @@ name = "grapheme-picker"
 version = "0.1.0"
 authors = ["Loic TRUCHOT <loic.truchot.pro@gmail.com>"]
 edition = "2018"
+description = "Helps to pick part of words"
+readme = "README.md"
+repository = "https://github.com/ltruchot/rust_french-packages"
+license = "MIT"
+license-file = "LICENSE.md"
+keywords = ["unicode", "grapheme", "part", "word"]
+categories = ["internationalization", "localization", "text-processing"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

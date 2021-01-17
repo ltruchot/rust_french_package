@@ -6,11 +6,11 @@ It mainly follow the french plural rules available on the [French Wiktionary](ht
 
 ```toml
 [dependencies]
-french-pluralize = "0.2.3"
+french-pluralize = "0.2.5"
 ```
 
 ```rust
-use french-pluralize::pluralize_word;
+use french_pluralize::pluralize_word;
 
 println!("{}", pluralize_word("voiture")); // voitures
 
