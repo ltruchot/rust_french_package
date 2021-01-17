@@ -14,5 +14,5 @@ categories = ["internationalization", "localization", "text-processing"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-grapheme-picker = { path = "../grapheme-picker" }
+grapheme-picker = { version = "0.1.0", path = "../grapheme-picker" }
 
