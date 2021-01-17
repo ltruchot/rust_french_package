@@ -27,14 +27,14 @@ impl CommonNoun {
         };
         let plural = match &self.plural {
             Some(res) => [
-                "Some(StaticLemma { content:\"",
+                "Some(StaticLemma { content: \"",
                 &res.content,
                 "\", phonetic: ",
                 &match &res.phonetic {
                     Some(ph) => ["Some(\"", ph, "\""].join(""),
                     None => String::from("None"),
                 },
-                "})",
+                ") })",
             ]
             .join(""),
             None => String::from("None"),

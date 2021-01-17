@@ -1,5 +1,7 @@
+pub const Y: [&str; 3] = ["baby", "hobby", "lady"];
+
 // \u{e9} -> é
-pub const AL: [&str; 109] = [
+pub const AL: [&str; 110] = [
     "\u{e9}tal",
     "\u{e9}thanal",
     "ac\u{e9}tal",
@@ -58,6 +60,7 @@ pub const AL: [&str; 109] = [
     "mezcal",
     "minerval",
     "mistral",
+    "morfal",
     "n\u{e9}onatal",
     "narval",
     "natal",
@@ -111,8 +114,8 @@ pub const AL: [&str; 109] = [
     "zicral",
 ];
 
-pub const OU: [&str; 10] = [
-    "bijou", "chou", "genou", "caillou", "hibou", "joujou", "pou", "ripou", "chouchou", "boutchou",
+pub const OU: [&str; 9] = [
+    "bijou", "chou", "genou", "caillou", "hibou", "joujou", "pou", "ripou", "boutchou",
 ];
 
 pub const EU: [&str; 9] = [
@@ -152,7 +155,8 @@ pub const AU: [&str; 22] = [
     "wau",
 ];
 
-pub const AIL: [&str; 9] = [
+pub const AIL: [&str; 10] = [
+    "aspirail",
     "bail",
     "corail",
     "\u{e9}mail",

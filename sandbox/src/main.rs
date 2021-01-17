@@ -1,5 +1,5 @@
 use french_pluralize::pluralize_word;
-use french_words_generator::write_common_nouns;
+use french_words_generator::write_commonnouns_irregular_plurals;
 
 fn main() {
     println!("{}", pluralize_word("voiture")); // voitures
@@ -23,7 +23,7 @@ fn main() {
     assert_eq!(pluralize_word("chandail"), "chandails");
     assert_eq!(pluralize_word("voiture"), "voitures");
     assert_eq!(pluralize_word("vélo"), "vélos");
-    match write_common_nouns() {
+    match write_commonnouns_irregular_plurals() {
         Ok(_) => println!("tout va bien"),
         Err(err) => println!("err {}", err),
     }

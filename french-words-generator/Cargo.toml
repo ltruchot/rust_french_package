@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 mysql = "20.0.1"
 french-words = { path = "../french-words" }
+french-pluralize = { path = "../french-pluralize" }

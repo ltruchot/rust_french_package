@@ -7,13 +7,14 @@ use std::fs::File;
 use std::io::prelude::*;
 
 mod structs;
-use french_words::structs::NounGender;
 use structs::{CommonNoun, Lemma};
+
+use french_pluralize::pluralize_word;
+use french_words::structs::NounGender;
 
 /// # Errors
 ///
-/// Will return `Err` if `filename` does not exist or the user does not have
-/// permission to read it.
+/// Will return `Err` if...
 pub fn select_common_nouns() -> Result<Vec<CommonNoun>> {
     let url = "mysql://root:@localhost:3306/morphalou3";
 
@@ -54,8 +55,7 @@ pub fn select_common_nouns() -> Result<Vec<CommonNoun>> {
         WHERE
             lemma.category = 'commonNoun' AND lemma.feminineOf IS NULL
         ORDER BY
-            lemma.content
-        LIMIT 100",
+            lemma.content",
         |(
             singular_content,
             gender,
@@ -111,11 +111,23 @@ pub fn select_common_nouns() -> Result<Vec<CommonNoun>> {
     Ok(selected_nouns)
 }
 
-pub fn write_common_nouns() -> Result<()> {
+/// # Errors
+///
+/// Will return `Err` if...
+pub fn write_commonnouns_irregular_plurals() -> Result<()> {
     let plain_common_nouns = select_common_nouns()?;
     let common_nouns = plain_common_nouns
         .iter()
-        .map(|noun| noun.get_as_str())
+        .filter_map(|noun| match &noun.plural {
+            Some(plural_lemma) => {
+                if pluralize_word(&noun.singular.content) == plural_lemma.content {
+                    None
+                } else {
+                    Some(noun.get_as_str())
+                }
+            }
+            None => None,
+        })
         .collect::<Vec<String>>();
     let mut file = File::create("./french-words/src/common_nouns.rs")?;
     let content = [

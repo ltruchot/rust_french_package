@@ -28,26 +28,39 @@ pub fn pluralize_word(word: &str) -> String {
     if word == "" {
         return String::new();
     }
+    if word == "ail" {
+        return String::from("aulx");
+    }
     if word == "oeil" {
         return String::from("yeux");
     }
     if word == "viel" {
         return String::from("vieux");
     }
+    // topos -> topoï
     if word == "topos" {
-        return String::from("topo\u{ef}"); // topoï
+        return String::from("topo\u{ef}");
+    }
+    // dû -> dus
+    if word == "d\u{fb}" {
+        return String::from("dus");
     }
 
     // 2) local exceptions
     let result = String::from(word);
-
-    // -- ending with "s", "x", "z"
     let last = take_last(word);
+
+    // ending with "y" (few english words like "hobby")
+    if exceptions::Y.contains(&word) {
+        return drop_last(word) + "ies";
+    }
+
+    // -- ending with "s", "x", "z" (like "nez")
     if last == "s" || last == "x" || last == "z" {
         return result;
     }
 
-    // -- ending with "au", "eu", "ou", "al", "œu"
+    // -- ending with "au", "eu", "ou", "al", "œu" (like "animal")
     let last_2_graphemes = take_lasts(word, 2);
     let last2 = last_2_graphemes.as_str();
 
@@ -80,7 +93,7 @@ pub fn pluralize_word(word: &str) -> String {
         };
     }
 
-    // -- ending with "ail"
+    // -- ending with "ail" (like "vitrail")
     let last_3_graphemes = take_lasts(word, 3);
     let last3 = last_3_graphemes.as_str();
     if last3 == "ail" && exceptions::AIL.contains(&word) {
